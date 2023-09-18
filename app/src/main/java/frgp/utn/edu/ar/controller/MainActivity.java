@@ -8,8 +8,12 @@ import android.os.Bundle;
 import com.google.android.material.tabs.TabItem;
 import com.google.android.material.tabs.TabLayout;
 
+import frgp.utn.edu.ar.Negocio.CategoriaNegocio;
+import frgp.utn.edu.ar.NegocioImpl.CategoriaNegocioImpl;
+
 public class MainActivity extends AppCompatActivity {
 
+    CategoriaNegocio CatNeg = new CategoriaNegocioImpl();
     TabLayout tablayout;
     ViewPager viewpager;
     TabItem alta, modificar, listar;
@@ -23,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
         alta = findViewById(R.id.tab_alta);
         modificar = findViewById(R.id.tab_modificar);
         listar = findViewById(R.id.tab_listar);
-
+        CatNeg.listarCategorias(this);
         pagerAdapter = new PagerAdapter(getSupportFragmentManager(),tablayout.getTabCount());
         viewpager.setAdapter(pagerAdapter);
         tablayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
