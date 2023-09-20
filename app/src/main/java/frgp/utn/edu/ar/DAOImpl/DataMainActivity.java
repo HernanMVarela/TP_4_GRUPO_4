@@ -3,6 +3,9 @@ package frgp.utn.edu.ar.DAOImpl;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -11,18 +14,20 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import frgp.utn.edu.ar.adapters.CategoriaAdapter;
 import frgp.utn.edu.ar.entidades.Categoria;
 
 public class DataMainActivity extends AsyncTask<String, Void, String> {
 
     private Context context;
+    private Spinner spinCate;
     private static String result2;
     private static List<Categoria> listaCategoria;
 
     //Constructor
-    public DataMainActivity(List<Categoria> lv, Context ct)
+    public DataMainActivity(Spinner spin, Context ct)
     {
-        listaCategoria = lv;
+        spinCate = spin;
         context = ct;
     }
 
@@ -36,7 +41,7 @@ public class DataMainActivity extends AsyncTask<String, Void, String> {
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery("SELECT * FROM categoria");
             result2 = " ";
-
+            listaCategoria = new ArrayList<Categoria>();
             while(rs.next()) {
                 Categoria categoria = new Categoria();
                 categoria.setId(rs.getInt("id"));
@@ -56,9 +61,9 @@ public class DataMainActivity extends AsyncTask<String, Void, String> {
         return response;
 
     }
-
     @Override
     protected void onPostExecute(String response) {
-
+        CategoriaAdapter adapter = new CategoriaAdapter(context, listaCategoria);
+        spinCate.setAdapter(adapter);
     }
 }

@@ -7,6 +7,10 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Spinner;
+
+import frgp.utn.edu.ar.Negocio.CategoriaNegocio;
+import frgp.utn.edu.ar.NegocioImpl.CategoriaNegocioImpl;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -56,9 +60,12 @@ public class Alta extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_alta, container, false);
+        CategoriaNegocio CatNeg = new CategoriaNegocioImpl();
+        View view = inflater.inflate(R.layout.fragment_alta, container, false);
+        Spinner spinCategorias = view.findViewById(R.id.spinerCategorias);
+        CatNeg.listarCategorias(view.getContext(), spinCategorias);
+        return view;
     }
 }
