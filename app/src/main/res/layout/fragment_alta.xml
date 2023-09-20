@@ -6,19 +6,14 @@
     tools:context=".Alta">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/alta"
-        android:textSize="24sp"
-        android:gravity="center_horizontal"/>
 
     <LinearLayout
-        android:layout_width="365dp"
-        android:layout_height="692dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginVertical="20dp"
         android:layout_gravity="center_horizontal|bottom"
         android:orientation="vertical">
-
 
         <ScrollView
             android:layout_width="match_parent"
@@ -27,26 +22,105 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/textView2"
-                    android:layout_width="246dp"
-                    android:layout_height="36dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/ingreseunproducto"
+                    android:textSize="24sp"
+                    android:layout_marginBottom="20sp"
+                    android:gravity="center_horizontal"/>
+
+                <TextView
+                    android:id="@+id/textViewID"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="5dp"
                     android:layout_weight="1"
-                    android:textAlignment="center"
-                    android:gravity="center"
-                    android:textSize="22sp"
-                    android:text="@string/categoria" />
+                    android:text="@string/idAlta"
+                    android:textAlignment="textStart"
+                    android:textSize="22sp" />
+
+                <EditText
+                    android:id="@+id/editTextNumber2"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:inputType="number"
+                    android:textSize="22sp" />
+
+                <TextView
+                    android:id="@+id/textViewNombre"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"
+                    android:text="@string/nombre_prod"
+                    android:textAlignment="textStart"
+                    android:textSize="22sp" />
+
+
+                <EditText
+                    android:id="@+id/editTextNombre"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:inputType="text"
+                    android:textSize="22sp" />
+
+                <TextView
+                    android:id="@+id/textViewStock"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"
+                    android:text="@string/stock"
+                    android:textAlignment="textStart"
+                    android:textSize="22sp" />
+
+
+                <EditText
+                    android:id="@+id/editTextNStock"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:inputType="number"
+                    android:textSize="22sp" />
+
+                <TextView
+                    android:id="@+id/textViewCate"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="1"
+                    android:text="@string/categoria"
+                    android:textAlignment="textStart"
+                    android:textSize="22sp" />
 
                 <Spinner
                     android:id="@+id/spinerCategorias"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:textAlignment="textStart"
-
+                    android:layout_height="40dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="1"
                     android:spinnerMode="dropdown"
-                    android:layout_weight="1" />
+                    android:textAlignment="textStart" />
+
+                <Button
+                    android:id="@+id/button"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="15dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="#64ABF1"
+                    android:text="@string/agregar" />
             </LinearLayout>
         </ScrollView>
 
