@@ -14,7 +14,7 @@ public class Categoria {
 
     @Override
     public String toString() {
-        return id + " - " + descripcion;
+        return descripcion;
     }
 
     public int getId() {

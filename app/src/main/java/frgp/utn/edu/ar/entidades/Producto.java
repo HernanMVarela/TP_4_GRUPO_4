@@ -23,7 +23,7 @@ public class Producto {
                 "id=" + id +
                 ", nombre='" + nombre + '\'' +
                 ", stock=" + stock +
-                ", categoria=" + categoria +
+                ", categoria=" + categoria.getId() + " - " + categoria.getDescripcion() +
                 '}';
     }
 

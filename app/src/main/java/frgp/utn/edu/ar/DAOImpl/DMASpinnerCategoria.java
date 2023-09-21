@@ -3,9 +3,7 @@ package frgp.utn.edu.ar.DAOImpl;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
-import android.widget.ArrayAdapter;
 import android.widget.Spinner;
-import android.widget.SpinnerAdapter;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -17,7 +15,7 @@ import java.util.List;
 import frgp.utn.edu.ar.adapters.CategoriaAdapter;
 import frgp.utn.edu.ar.entidades.Categoria;
 
-public class DataMainActivity extends AsyncTask<String, Void, String> {
+public class DMASpinnerCategoria extends AsyncTask<String, Void, String> {
 
     private Context context;
     private Spinner spinCate;
@@ -25,7 +23,7 @@ public class DataMainActivity extends AsyncTask<String, Void, String> {
     private static List<Categoria> listaCategoria;
 
     //Constructor
-    public DataMainActivity(Spinner spin, Context ct)
+    public DMASpinnerCategoria(Spinner spin, Context ct)
     {
         spinCate = spin;
         context = ct;
