@@ -39,25 +39,22 @@ public class DMABuscarProducto extends AsyncTask<String, Void, String> {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             Connection con = DriverManager.getConnection(DataDB.urlMySQL, DataDB.user, DataDB.pass);
-            PreparedStatement st = con.prepareStatement("SELECT * FROM articulo WHERE a.id = ?");
+            PreparedStatement st = con.prepareStatement("SELECT * FROM articulo WHERE id = ?");
             st.setInt(1, id);
-            java.sql.ResultSet rs = st.executeQuery();
-            while(rs.next()) {
-                nombre.setText(rs.getString("nombre"));
-                stock.setText(rs.getString("stock"));
-                idCategoria.setSelection(rs.getInt("idCategoria"));
-            }
-
-            if(!rs.next())
-            {
-                Toast.makeText(context, "No se encontró el producto", Toast.LENGTH_SHORT).show();
+            java.sql.ResultSet resultSet = st.executeQuery();
+            if (resultSet.next()) {
+                nombre.setText(resultSet.getString("nombre"));
+                stock.setText(resultSet.getString("stock"));
+                idCategoria.setSelection(resultSet.getInt("idCategoria"));
+            } else {
+                Log.d("Info: ", "PRODUCTO NO ENCONTRADO");
+                nombre.setText("N/A");
+                stock.setText("N/A");
             }
 
             response = "Conexion exitosa";
             st.close();
             con.close();
-        } catch (MySQLIntegrityConstraintViolationException e) {
-            response = e.toString();
         } catch (Exception e) {
             response = e.toString();
         }

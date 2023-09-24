@@ -114,6 +114,7 @@
                     android:layout_marginTop="15dp"
                     android:layout_weight="1"
                     android:backgroundTint="#64ABF1"
+                    android:onClick="onClick"
                     android:text="@string/agregar" />
             </LinearLayout>
         </ScrollView>

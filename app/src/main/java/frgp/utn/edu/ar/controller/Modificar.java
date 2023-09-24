@@ -22,7 +22,7 @@ import frgp.utn.edu.ar.NegocioImpl.ProductoNegocioImpl;
  * Use the {@link Modificar#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Modificar extends Fragment {
+public class Modificar extends Fragment implements View.OnClickListener{
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -34,7 +34,6 @@ public class Modificar extends Fragment {
     private String mParam2;
     private EditText etID, etNombre, etStock;
     private Spinner spinCategorias;
-
     private Button btnModificar;
     public Modificar() {
         // Required empty public constructor
@@ -60,19 +59,20 @@ public class Modificar extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,  Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_modificar, container, false);
         CategoriaNegocio CatNeg = new CategoriaNegocioImpl();
+        View view = inflater.inflate(R.layout.fragment_modificar, container, false);
         etID = view.findViewById(R.id.editTextIDM);
         etNombre = view.findViewById(R.id.editTextNombre);
         etStock = view.findViewById(R.id.editTextStock);
         spinCategorias = view.findViewById(R.id.spinerCategorias);
-        btnModificar = view.findViewById(R.id.btnModificar);
-        //btnModificar.setOnClickListener(this);
+        btnModificar = view.findViewById(R.id.btnBuscar);
+        btnModificar.setOnClickListener(this);
         CatNeg.listarCategorias(view.getContext(), spinCategorias);
         return view;
     }
 
-    public void buscarPorId(View view){
+    @Override
+    public void onClick(View view) {
         if(etID.getText().toString().isEmpty()){
             Toast.makeText(this.getContext(), "Ingrese un ID", Toast.LENGTH_LONG).show();
         }
@@ -81,5 +81,4 @@ public class Modificar extends Fragment {
             ProdNeg.buscarProductoPorId(this.getContext(), Integer.parseInt(etID.getText().toString()), etNombre, etStock, spinCategorias);
         }
     }
-
 }
