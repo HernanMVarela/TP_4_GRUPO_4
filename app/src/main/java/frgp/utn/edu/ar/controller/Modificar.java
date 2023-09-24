@@ -7,6 +7,15 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.Toast;
+
+import frgp.utn.edu.ar.Negocio.CategoriaNegocio;
+import frgp.utn.edu.ar.Negocio.ProductoNegocio;
+import frgp.utn.edu.ar.NegocioImpl.CategoriaNegocioImpl;
+import frgp.utn.edu.ar.NegocioImpl.ProductoNegocioImpl;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -23,20 +32,14 @@ public class Modificar extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private EditText etID, etNombre, etStock;
+    private Spinner spinCategorias;
 
+    private Button btnModificar;
     public Modificar() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment Modificar.
-     */
-    // TODO: Rename and change types and number of parameters
     public static Modificar newInstance(String param1, String param2) {
         Modificar fragment = new Modificar();
         Bundle args = new Bundle();
@@ -56,9 +59,27 @@ public class Modificar extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_modificar, container, false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,  Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_modificar, container, false);
+        CategoriaNegocio CatNeg = new CategoriaNegocioImpl();
+        etID = view.findViewById(R.id.editTextIDM);
+        etNombre = view.findViewById(R.id.editTextNombre);
+        etStock = view.findViewById(R.id.editTextStock);
+        spinCategorias = view.findViewById(R.id.spinerCategorias);
+        btnModificar = view.findViewById(R.id.btnModificar);
+        //btnModificar.setOnClickListener(this);
+        CatNeg.listarCategorias(view.getContext(), spinCategorias);
+        return view;
     }
+
+    public void buscarPorId(View view){
+        if(etID.getText().toString().isEmpty()){
+            Toast.makeText(this.getContext(), "Ingrese un ID", Toast.LENGTH_LONG).show();
+        }
+        else{
+            ProductoNegocioImpl ProdNeg = new ProductoNegocioImpl();
+            ProdNeg.buscarProductoPorId(this.getContext(), Integer.parseInt(etID.getText().toString()), etNombre, etStock, spinCategorias);
+        }
+    }
+
 }

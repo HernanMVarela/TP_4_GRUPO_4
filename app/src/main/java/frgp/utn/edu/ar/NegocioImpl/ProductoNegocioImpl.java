@@ -1,7 +1,9 @@
 package frgp.utn.edu.ar.NegocioImpl;
 
 import android.content.Context;
+import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.Spinner;
 
 import frgp.utn.edu.ar.DAO.ProductoDAO;
 import frgp.utn.edu.ar.DAOImpl.DMAListarProductos;
@@ -17,5 +19,10 @@ public class ProductoNegocioImpl implements ProductoNegocio {
     }
     public void listarProductos(Context context, GridView gv, DMAListarProductos.OnItemClickListener listener){
         ProDAO.listarProductos(context,gv, listener);
+    }
+
+    @Override
+    public void buscarProductoPorId(Context context, int parseInt, EditText etNombre, EditText etStock, Spinner spinCategorias) {
+        ProDAO.buscarProductoPorId(context, parseInt, etNombre, etStock, spinCategorias);
     }
 }

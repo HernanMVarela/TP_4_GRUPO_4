@@ -4,14 +4,12 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import frgp.utn.edu.ar.Negocio.CategoriaNegocio;
 import frgp.utn.edu.ar.Negocio.ProductoNegocio;
@@ -65,7 +63,7 @@ public class Alta extends Fragment implements View.OnClickListener {
         spinCategorias = view.findViewById(R.id.spinerCategorias);
         id = view.findViewById(R.id.editTextID);
         nombre = view.findViewById(R.id.editTextNombre);
-        stock = view.findViewById(R.id.editTextNStock);
+        stock = view.findViewById(R.id.editTextStock);
         btnAgregar = view.findViewById(R.id.bAgregar);
         btnAgregar.setOnClickListener(this);
         CatNeg.listarCategorias(view.getContext(), spinCategorias);
