@@ -16,6 +16,8 @@ import frgp.utn.edu.ar.Negocio.CategoriaNegocio;
 import frgp.utn.edu.ar.Negocio.ProductoNegocio;
 import frgp.utn.edu.ar.NegocioImpl.CategoriaNegocioImpl;
 import frgp.utn.edu.ar.NegocioImpl.ProductoNegocioImpl;
+import frgp.utn.edu.ar.entidades.Categoria;
+import frgp.utn.edu.ar.entidades.Producto;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -34,7 +36,7 @@ public class Modificar extends Fragment implements View.OnClickListener{
     private String mParam2;
     private EditText etID, etNombre, etStock;
     private Spinner spinCategorias;
-    private Button btnModificar;
+    private Button btnBuscar, btnModificar;
     public Modificar() {
         // Required empty public constructor
     }
@@ -65,8 +67,25 @@ public class Modificar extends Fragment implements View.OnClickListener{
         etNombre = view.findViewById(R.id.editTextNombre);
         etStock = view.findViewById(R.id.editTextStock);
         spinCategorias = view.findViewById(R.id.spinerCategorias);
-        btnModificar = view.findViewById(R.id.btnBuscar);
-        btnModificar.setOnClickListener(this);
+        btnBuscar = view.findViewById(R.id.btnBuscar);
+        btnBuscar.setOnClickListener(this);
+        btnModificar = view.findViewById(R.id.btnModificar);
+        btnModificar.setOnClickListener(new View.OnClickListener(){
+
+            public void onClick(View v) {
+                if(etID.getText().toString().isEmpty()){
+                    Toast.makeText(view.getContext(), "Ingrese un ID", Toast.LENGTH_LONG).show();
+                }
+                else{
+                    ProductoNegocioImpl ProdNeg = new ProductoNegocioImpl();
+                    Producto modificado = new Producto();
+                    modificado.setId(Integer.parseInt(etID.getText().toString()));
+                    modificado.setNombre(etNombre.getText().toString());
+                    modificado.setStock(Integer.parseInt(etStock.getText().toString()));
+                    modificado.setCategoria(new Categoria(spinCategorias.getSelectedItemPosition()+1,spinCategorias.getSelectedItem().toString()));
+                    ProdNeg.modificarProducto(modificado,view.getContext());
+                }
+            }});
         CatNeg.listarCategorias(view.getContext(), spinCategorias);
         return view;
     }
@@ -80,5 +99,8 @@ public class Modificar extends Fragment implements View.OnClickListener{
             ProductoNegocioImpl ProdNeg = new ProductoNegocioImpl();
             ProdNeg.buscarProductoPorId(this.getContext(), Integer.parseInt(etID.getText().toString()), etNombre, etStock, spinCategorias);
         }
+    }
+    public void ModificarDB(View view) {
+
     }
 }

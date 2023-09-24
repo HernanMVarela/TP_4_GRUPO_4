@@ -25,4 +25,9 @@ public class ProductoNegocioImpl implements ProductoNegocio {
     public void buscarProductoPorId(Context context, int parseInt, EditText etNombre, EditText etStock, Spinner spinCategorias) {
         ProDAO.buscarProductoPorId(context, parseInt, etNombre, etStock, spinCategorias);
     }
+
+    @Override
+    public void modificarProducto(Producto modificado, Context context) {
+        ProDAO.modificarProducto(modificado,context);
+    }
 }

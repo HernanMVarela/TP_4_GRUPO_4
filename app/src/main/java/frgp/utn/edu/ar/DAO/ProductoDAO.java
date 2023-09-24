@@ -14,4 +14,5 @@ public interface ProductoDAO {
     void agregarProducto(Producto nuevo, Context context);
     void listarProductos(Context context, GridView gv, DMAListarProductos.OnItemClickListener listener);
     void buscarProductoPorId(Context context, int parseInt, EditText etNombre, EditText etStock, Spinner spinCategorias);
+    void modificarProducto(Producto modificado, Context context);
 }
