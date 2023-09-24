@@ -5,12 +5,17 @@
     android:layout_height="match_parent"
     tools:context=".Listar">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/listado"
-        android:textSize="24sp"
-        android:gravity="center"/>
+        <GridView
+            android:id="@+id/gvProductos"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:backgroundTint="@color/material_dynamic_neutral70"
+            android:layout_gravity="center"
+            android:textAlignment="center"
+            android:horizontalSpacing="2dp"
+            android:layout_margin="15dp"
+            android:numColumns="2"
+            android:stretchMode="columnWidth"
+            android:verticalSpacing="2dp" />
 
 </FrameLayout>

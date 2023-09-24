@@ -20,22 +20,16 @@ import frgp.utn.edu.ar.NegocioImpl.ProductoNegocioImpl;
 import frgp.utn.edu.ar.entidades.Categoria;
 import frgp.utn.edu.ar.entidades.Producto;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link Alta#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class Alta extends Fragment implements View.OnClickListener {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private static final String ARG_PARAM1 = "Alta producto";
+    private static final String ARG_PARAM2 = "Completar datos";
 
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
     private Button btnAgregar;
     private Spinner spinCategorias;
     private EditText id, nombre, stock;
@@ -44,14 +38,6 @@ public class Alta extends Fragment implements View.OnClickListener {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment Alta.
-     */
     // TODO: Rename and change types and number of parameters
     public static Alta newInstance(String param1, String param2) {
         Alta fragment = new Alta();
@@ -95,8 +81,7 @@ public class Alta extends Fragment implements View.OnClickListener {
         nuevo.setStock(Integer.parseInt(stock.getText().toString()));
         nuevo.setCategoria(new Categoria(spinCategorias.getSelectedItemPosition()+1,spinCategorias.getSelectedItem().toString()));
         ProductoNegocio ProdNeg = new ProductoNegocioImpl();
-        if(ProdNeg.agregarProducto(nuevo, this.getContext())){
-            Toast.makeText(view.getContext(),"Agregado con éxito", Toast.LENGTH_LONG).show();
-        }
+        ProdNeg.agregarProducto(nuevo, this.getContext());
+
     }
 }
