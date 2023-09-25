@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import frgp.utn.edu.ar.Negocio.CategoriaNegocio;
 import frgp.utn.edu.ar.Negocio.ProductoNegocio;
@@ -72,14 +73,24 @@ public class Alta extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
+        ProductoNegocio ProdNeg = new ProductoNegocioImpl();
+
+        if(id.getText().toString().isEmpty() || nombre.getText().toString().isEmpty() || stock.getText().toString().isEmpty()){
+            Toast.makeText(this.getContext(), "Todos los campos son obligatorios", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        if(ProdNeg.existeProductoPorId(Integer.parseInt(id.getText().toString()), this.getContext())){
+            Toast.makeText(this.getContext(), "El ID ingresado ya existe", Toast.LENGTH_LONG).show();
+            return;
+        }
+
         Producto nuevo = new Producto();
 
         nuevo.setId(Integer.parseInt(id.getText().toString()));
         nuevo.setNombre(nombre.getText().toString());
         nuevo.setStock(Integer.parseInt(stock.getText().toString()));
         nuevo.setCategoria(new Categoria(spinCategorias.getSelectedItemPosition()+1,spinCategorias.getSelectedItem().toString()));
-        ProductoNegocio ProdNeg = new ProductoNegocioImpl();
         ProdNeg.agregarProducto(nuevo, this.getContext());
-
     }
 }

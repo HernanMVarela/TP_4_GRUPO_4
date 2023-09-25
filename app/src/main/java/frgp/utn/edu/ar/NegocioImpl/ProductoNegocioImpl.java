@@ -30,4 +30,11 @@ public class ProductoNegocioImpl implements ProductoNegocio {
     public void modificarProducto(Producto modificado, Context context) {
         ProDAO.modificarProducto(modificado,context);
     }
+
+    @Override
+    public boolean existeProductoPorId(int id, Context context) {
+        return ProDAO.buscarProductoPorId(context, id);
+    }
+
+
 }

@@ -13,4 +13,5 @@ public interface ProductoNegocio {
     void listarProductos(Context context, GridView gv, DMAListarProductos.OnItemClickListener listener);
     void buscarProductoPorId(Context context, int parseInt, EditText etNombre, EditText etStock, Spinner spinCategorias);
     void modificarProducto(Producto modificado, Context context);
+    boolean existeProductoPorId(int parseInt, Context context);
 }

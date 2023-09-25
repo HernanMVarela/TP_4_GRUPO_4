@@ -27,6 +27,19 @@ public class ProductoDAOImpl implements ProductoDAO {
         DMABuscarProducto DMABP = new DMABuscarProducto(parseInt, etNombre, etStock, spinCategorias, context);
         DMABP.execute();
     }
+
+    @Override
+    public boolean buscarProductoPorId(Context context, int parseInt) {
+        DMABuscarProductoPorId DMABP = new DMABuscarProductoPorId(parseInt, context);
+        DMABP.execute();
+        try {
+            return DMABP.get();
+        } catch (Exception e) {
+            Log.d("Error", e.getMessage());
+            return false;
+        }
+    }
+
     @Override
     public void modificarProducto(Producto modificado, Context context){
         DMAUpdateProducto DMAUP = new DMAUpdateProducto(modificado,context);
