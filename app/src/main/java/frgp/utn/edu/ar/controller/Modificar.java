@@ -79,6 +79,11 @@ public class Modificar extends Fragment implements View.OnClickListener{
                     Toast.makeText(view.getContext(), "Complete todos los campos", Toast.LENGTH_LONG).show();
                 }
 
+                if(Integer.parseInt(etStock.getText().toString()) < 0){
+                    Toast.makeText(view.getContext(), "El stock no puede ser negativo", Toast.LENGTH_LONG).show();
+                }
+
+
                 if(!producto.getNombre().equals(etNombre.getText().toString())) {
                     ProductoNegocioImpl ProdNeg = new ProductoNegocioImpl();
                     if(ProdNeg.buscarProductoPorNombre(etNombre.getText().toString(), view.getContext()) != null){
