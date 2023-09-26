@@ -37,6 +37,7 @@ public class Modificar extends Fragment implements View.OnClickListener{
     private EditText etID, etNombre, etStock;
     private Spinner spinCategorias;
     private Button btnBuscar, btnModificar;
+    private Producto producto = null;
     public Modificar() {
         // Required empty public constructor
     }
@@ -57,6 +58,7 @@ public class Modificar extends Fragment implements View.OnClickListener{
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
     }
 
     @Override
@@ -73,9 +75,18 @@ public class Modificar extends Fragment implements View.OnClickListener{
         btnModificar.setOnClickListener(new View.OnClickListener(){
 
             public void onClick(View v) {
-                if(etID.getText().toString().isEmpty()){
-                    Toast.makeText(view.getContext(), "Ingrese un ID", Toast.LENGTH_LONG).show();
+                if(etID.getText().toString().isEmpty() || etNombre.getText().toString().isEmpty() || etStock.getText().toString().isEmpty()){
+                    Toast.makeText(view.getContext(), "Complete todos los campos", Toast.LENGTH_LONG).show();
                 }
+
+                if(!producto.getNombre().equals(etNombre.getText().toString())) {
+                    ProductoNegocioImpl ProdNeg = new ProductoNegocioImpl();
+                    if(ProdNeg.buscarProductoPorNombre(etNombre.getText().toString(), view.getContext()) != null){
+                        Toast.makeText(view.getContext(), "Ya existe un producto con ese nombre", Toast.LENGTH_LONG).show();
+                        return;
+                    }
+                }
+
                 else{
                     ProductoNegocioImpl ProdNeg = new ProductoNegocioImpl();
                     Producto modificado = new Producto();
@@ -85,6 +96,12 @@ public class Modificar extends Fragment implements View.OnClickListener{
                     modificado.setCategoria(new Categoria(spinCategorias.getSelectedItemPosition()+1,spinCategorias.getSelectedItem().toString()));
                     ProdNeg.modificarProducto(modificado,view.getContext());
                 }
+                etID.setEnabled(true);
+                etID.setText("");
+                etNombre.setText("");
+                etStock.setText("");
+                spinCategorias.setSelection(0);
+                producto = null;
             }});
         CatNeg.listarCategorias(view.getContext(), spinCategorias);
         return view;
@@ -97,10 +114,17 @@ public class Modificar extends Fragment implements View.OnClickListener{
         }
         else{
             ProductoNegocioImpl ProdNeg = new ProductoNegocioImpl();
-            ProdNeg.buscarProductoPorId(this.getContext(), Integer.parseInt(etID.getText().toString()), etNombre, etStock, spinCategorias);
+            producto =  ProdNeg.buscarProductoPorId(this.getContext(), Integer.parseInt(etID.getText().toString()));
+            if(producto == null){
+                Toast.makeText(this.getContext(), "No se encontro el producto", Toast.LENGTH_LONG).show();
+            }
+            else{
+                etID.setEnabled(false);
+                etNombre.setText(producto.getNombre());
+                etStock.setText(String.valueOf(producto.getStock()));
+                spinCategorias.setSelection(producto.getCategoria().getId()-1);
+            }
         }
     }
-    public void ModificarDB(View view) {
 
-    }
 }

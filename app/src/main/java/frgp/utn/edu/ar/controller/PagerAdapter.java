@@ -1,5 +1,7 @@
 package frgp.utn.edu.ar.controller;
 
+import android.view.ViewGroup;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -31,4 +33,13 @@ public class PagerAdapter extends FragmentPagerAdapter {
     public int getCount() {
         return cantTabs;
     }
+
+    @Override
+    public void startUpdate(@NonNull ViewGroup container) {
+        super.startUpdate(container);
+
+    }
+
+
+
 }

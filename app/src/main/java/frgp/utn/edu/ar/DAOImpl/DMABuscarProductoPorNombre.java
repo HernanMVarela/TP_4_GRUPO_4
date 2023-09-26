@@ -10,15 +10,14 @@ import java.sql.PreparedStatement;
 
 import frgp.utn.edu.ar.entidades.Producto;
 
-public class DMABuscarProductoPorId extends AsyncTask<String, Void, Producto> {
+public class DMABuscarProductoPorNombre extends AsyncTask<String, Void, Producto> {
 
 
     private Context context;
-    private int id;
+    private String nombre;
 
-    public DMABuscarProductoPorId(int id, Context ct)
-    {
-        this.id = id;
+    public DMABuscarProductoPorNombre(String nombre, Context ct) {
+        this.nombre = nombre;
         context = ct;
     }
 
@@ -28,8 +27,8 @@ public class DMABuscarProductoPorId extends AsyncTask<String, Void, Producto> {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             Connection con = DriverManager.getConnection(DataDB.urlMySQL, DataDB.user, DataDB.pass);
-            PreparedStatement st = con.prepareStatement("SELECT * FROM articulo WHERE id = ?");
-            st.setInt(1, id);
+            PreparedStatement st = con.prepareStatement("SELECT * FROM articulo WHERE nombre = ?");
+            st.setNString(1, nombre);
             java.sql.ResultSet resultSet = st.executeQuery();
             if (resultSet.next()) {
                 producto = new Producto();

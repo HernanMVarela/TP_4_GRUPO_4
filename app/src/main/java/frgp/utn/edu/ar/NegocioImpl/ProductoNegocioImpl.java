@@ -22,8 +22,8 @@ public class ProductoNegocioImpl implements ProductoNegocio {
     }
 
     @Override
-    public void buscarProductoPorId(Context context, int parseInt, EditText etNombre, EditText etStock, Spinner spinCategorias) {
-        ProDAO.buscarProductoPorId(context, parseInt, etNombre, etStock, spinCategorias);
+    public Producto buscarProductoPorId(Context context, int parseInt) {
+        return ProDAO.buscarProductoPorId(context, parseInt);
     }
 
     @Override
@@ -32,9 +32,7 @@ public class ProductoNegocioImpl implements ProductoNegocio {
     }
 
     @Override
-    public boolean existeProductoPorId(int id, Context context) {
-        return ProDAO.buscarProductoPorId(context, id);
+    public Producto buscarProductoPorNombre(String toString, Context context) {
+        return ProDAO.buscarProductoPorNombre(context, toString);
     }
-
-
 }

@@ -2,9 +2,7 @@ package frgp.utn.edu.ar.DAOImpl;
 
 import android.content.Context;
 import android.util.Log;
-import android.widget.EditText;
 import android.widget.GridView;
-import android.widget.Spinner;
 
 import frgp.utn.edu.ar.DAO.ProductoDAO;
 import frgp.utn.edu.ar.entidades.Producto;
@@ -23,20 +21,14 @@ public class ProductoDAOImpl implements ProductoDAO {
     }
 
     @Override
-    public void buscarProductoPorId(Context context, int parseInt, EditText etNombre, EditText etStock, Spinner spinCategorias) {
-        DMABuscarProducto DMABP = new DMABuscarProducto(parseInt, etNombre, etStock, spinCategorias, context);
-        DMABP.execute();
-    }
-
-    @Override
-    public boolean buscarProductoPorId(Context context, int parseInt) {
+    public Producto buscarProductoPorId(Context context, int parseInt) {
         DMABuscarProductoPorId DMABP = new DMABuscarProductoPorId(parseInt, context);
         DMABP.execute();
         try {
             return DMABP.get();
         } catch (Exception e) {
             Log.d("Error", e.getMessage());
-            return false;
+            return null;
         }
     }
 
@@ -44,5 +36,17 @@ public class ProductoDAOImpl implements ProductoDAO {
     public void modificarProducto(Producto modificado, Context context){
         DMAUpdateProducto DMAUP = new DMAUpdateProducto(modificado,context);
         DMAUP.execute();
+    }
+
+    @Override
+    public Producto buscarProductoPorNombre(Context context, String toString) {
+        DMABuscarProductoPorNombre DMABPN = new DMABuscarProductoPorNombre(toString, context);
+        DMABPN.execute();
+        try {
+            return DMABPN.get();
+        } catch (Exception e) {
+            Log.d("Error", e.getMessage());
+            return null;
+        }
     }
 }

@@ -54,6 +54,7 @@ public class Alta extends Fragment implements View.OnClickListener {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
     }
 
     @Override
@@ -80,8 +81,18 @@ public class Alta extends Fragment implements View.OnClickListener {
             return;
         }
 
-        if(ProdNeg.existeProductoPorId(Integer.parseInt(id.getText().toString()), this.getContext())){
+        if(Integer.parseInt(stock.getText().toString()) < 0){
+            Toast.makeText(this.getContext(), "El stock no puede ser negativo", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        if(ProdNeg.buscarProductoPorId(this.getContext(), Integer.parseInt(id.getText().toString())) != null) {
             Toast.makeText(this.getContext(), "El ID ingresado ya existe", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        if(ProdNeg.buscarProductoPorNombre(nombre.getText().toString(), this.getContext()) != null) {
+            Toast.makeText(this.getContext(), "Ya existe un producto con ese nombre", Toast.LENGTH_LONG).show();
             return;
         }
 
@@ -92,5 +103,9 @@ public class Alta extends Fragment implements View.OnClickListener {
         nuevo.setStock(Integer.parseInt(stock.getText().toString()));
         nuevo.setCategoria(new Categoria(spinCategorias.getSelectedItemPosition()+1,spinCategorias.getSelectedItem().toString()));
         ProdNeg.agregarProducto(nuevo, this.getContext());
+
+        id.setText("");
+        nombre.setText("");
+        stock.setText("");
     }
 }
