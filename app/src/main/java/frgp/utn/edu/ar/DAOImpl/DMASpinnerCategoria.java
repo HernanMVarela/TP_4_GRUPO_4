@@ -47,9 +47,6 @@ public class DMASpinnerCategoria extends AsyncTask<String, Void, String> {
 
                 listaCategoria.add(categoria);
             }
-            for (Categoria item: listaCategoria) {
-                Log.i("Categoria - " + item.getId(), item.getDescripcion());
-            }
             response = "Conexion exitosa";
         }
         catch(Exception e) {

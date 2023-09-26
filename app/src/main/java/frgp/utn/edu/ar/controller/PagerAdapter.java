@@ -37,7 +37,6 @@ public class PagerAdapter extends FragmentPagerAdapter {
     @Override
     public void startUpdate(@NonNull ViewGroup container) {
         super.startUpdate(container);
-
     }
 
 

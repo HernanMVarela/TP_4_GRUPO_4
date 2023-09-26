@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import frgp.utn.edu.ar.Negocio.CategoriaNegocio;
@@ -19,11 +20,6 @@ import frgp.utn.edu.ar.NegocioImpl.ProductoNegocioImpl;
 import frgp.utn.edu.ar.entidades.Categoria;
 import frgp.utn.edu.ar.entidades.Producto;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link Modificar#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class Modificar extends Fragment implements View.OnClickListener{
 
     // TODO: Rename parameter arguments, choose names that match
@@ -35,6 +31,7 @@ public class Modificar extends Fragment implements View.OnClickListener{
     private String mParam1;
     private String mParam2;
     private EditText etID, etNombre, etStock;
+    private TextView IDSelec;
     private Spinner spinCategorias;
     private Button btnBuscar, btnModificar;
     private Producto producto = null;
@@ -58,7 +55,6 @@ public class Modificar extends Fragment implements View.OnClickListener{
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-
     }
 
     @Override
@@ -68,6 +64,7 @@ public class Modificar extends Fragment implements View.OnClickListener{
         etID = view.findViewById(R.id.editTextIDM);
         etNombre = view.findViewById(R.id.editTextNombre);
         etStock = view.findViewById(R.id.editTextStock);
+        IDSelec = view.findViewById(R.id.IDBuscado);
         spinCategorias = view.findViewById(R.id.spinerCategorias);
         btnBuscar = view.findViewById(R.id.btnBuscar);
         btnBuscar.setOnClickListener(this);
@@ -75,7 +72,7 @@ public class Modificar extends Fragment implements View.OnClickListener{
         btnModificar.setOnClickListener(new View.OnClickListener(){
 
             public void onClick(View v) {
-                if(etID.getText().toString().isEmpty() || etNombre.getText().toString().isEmpty() || etStock.getText().toString().isEmpty()){
+                if(IDSelec.getText().toString().isEmpty() || etNombre.getText().toString().isEmpty() || etStock.getText().toString().isEmpty()){
                     Toast.makeText(view.getContext(), "Complete todos los campos", Toast.LENGTH_LONG).show();
                 }
 
@@ -95,14 +92,14 @@ public class Modificar extends Fragment implements View.OnClickListener{
                 else{
                     ProductoNegocioImpl ProdNeg = new ProductoNegocioImpl();
                     Producto modificado = new Producto();
-                    modificado.setId(Integer.parseInt(etID.getText().toString()));
+                    modificado.setId(Integer.parseInt(IDSelec.getText().toString()));
                     modificado.setNombre(etNombre.getText().toString());
                     modificado.setStock(Integer.parseInt(etStock.getText().toString()));
                     modificado.setCategoria(new Categoria(spinCategorias.getSelectedItemPosition()+1,spinCategorias.getSelectedItem().toString()));
                     ProdNeg.modificarProducto(modificado,view.getContext());
                 }
-                etID.setEnabled(true);
                 etID.setText("");
+                IDSelec.setText("____");
                 etNombre.setText("");
                 etStock.setText("");
                 spinCategorias.setSelection(0);
@@ -124,12 +121,11 @@ public class Modificar extends Fragment implements View.OnClickListener{
                 Toast.makeText(this.getContext(), "No se encontro el producto", Toast.LENGTH_LONG).show();
             }
             else{
-                etID.setEnabled(false);
+                IDSelec.setText(String.valueOf(producto.getId()));
                 etNombre.setText(producto.getNombre());
                 etStock.setText(String.valueOf(producto.getStock()));
                 spinCategorias.setSelection(producto.getCategoria().getId()-1);
             }
         }
     }
-
 }

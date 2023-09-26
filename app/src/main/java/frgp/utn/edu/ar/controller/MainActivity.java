@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
         listar = findViewById(R.id.tab_listar);
         pagerAdapter = new PagerAdapter(getSupportFragmentManager(),tablayout.getTabCount());
         viewpager.setAdapter(pagerAdapter);
-        tablayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+        tablayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 viewpager.setCurrentItem(tab.getPosition());
@@ -44,12 +44,11 @@ public class MainActivity extends AppCompatActivity {
                 if(tab.getPosition()==2){
                     pagerAdapter.notifyDataSetChanged();
                 }
-
             }
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-
+                
             }
 
             @Override

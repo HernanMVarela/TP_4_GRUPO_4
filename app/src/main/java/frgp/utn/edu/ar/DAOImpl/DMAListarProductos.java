@@ -63,9 +63,6 @@ public class DMAListarProductos extends AsyncTask<String, Void, String> {
                 listaProductos.add(producto);
             }
 
-            for (Producto item: listaProductos) {
-                Log.i("Producto - " + item.getId(), item.getNombre());
-            }
             response = "Conexion exitosa";
         }
         catch(Exception e) {

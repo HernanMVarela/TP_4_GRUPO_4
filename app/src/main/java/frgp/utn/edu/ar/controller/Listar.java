@@ -1,17 +1,12 @@
 package frgp.utn.edu.ar.controller;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
-import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import android.widget.GridView;
-import android.widget.Toast;
+
+import androidx.fragment.app.Fragment;
 
 import frgp.utn.edu.ar.DAOImpl.DMAListarProductos;
 import frgp.utn.edu.ar.Negocio.ProductoNegocio;
@@ -30,10 +25,7 @@ public class Listar extends Fragment implements DMAListarProductos.OnItemClickLi
     private String mParam1;
     private String mParam2;
 
-    private GridView gvProductos;
-
     public Listar() {
-        // Required empty public constructor
     }
 
     public static Listar newInstance(String param1, String param2) {
@@ -58,8 +50,8 @@ public class Listar extends Fragment implements DMAListarProductos.OnItemClickLi
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         ProductoNegocio ProdNeg = new ProductoNegocioImpl();
         View view = inflater.inflate(R.layout.fragment_listar, container, false);
-        gvProductos = view.findViewById(R.id.gvProductos);
-        ProdNeg.listarProductos(this.getContext(),gvProductos, this);
+        GridView gvProductos = view.findViewById(R.id.gvProductos);
+        ProdNeg.listarProductos(this.getContext(), gvProductos, this);
         return view;
     }
 
@@ -67,5 +59,20 @@ public class Listar extends Fragment implements DMAListarProductos.OnItemClickLi
     public void onItemClick(Producto producto) {
         ProductoDetalleDialogFragment dialogFragment = new ProductoDetalleDialogFragment(producto);
         dialogFragment.show(getFragmentManager(), "producto_detalle");
+    }
+
+    public void actualizarLista(){
+        ProductoNegocio ProdNeg = new ProductoNegocioImpl();
+        GridView gridView = getView().findViewById(R.id.gvProductos);
+        ProdNeg.listarProductos(this.getContext(), gridView, this);
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser && isResumed()) {
+            actualizarLista();
+        }
     }
 }
