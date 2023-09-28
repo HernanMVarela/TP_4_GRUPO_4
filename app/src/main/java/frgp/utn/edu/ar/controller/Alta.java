@@ -73,38 +73,48 @@ public class Alta extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
-        ProductoNegocio ProdNeg = new ProductoNegocioImpl();
+        ProductoNegocio prodNeg = new ProductoNegocioImpl();
 
+        if(checkFormValid(view, prodNeg)) {
+            Producto nuevo = new Producto();
+
+            nuevo.setId(Integer.parseInt(id.getText().toString()));
+            nuevo.setNombre(nombre.getText().toString());
+            nuevo.setStock(Integer.parseInt(stock.getText().toString()));
+            nuevo.setCategoria(new Categoria(spinCategorias.getSelectedItemPosition()+1,spinCategorias.getSelectedItem().toString()));
+            prodNeg.agregarProducto(nuevo, this.getContext());
+
+            id.setText("");
+            nombre.setText("");
+            stock.setText("");
+        }
+    }
+
+    private boolean checkFormValid(View view, ProductoNegocio prodNeg) {
         if(id.getText().toString().isEmpty() || nombre.getText().toString().isEmpty() || stock.getText().toString().isEmpty()){
             Toast.makeText(this.getContext(), "Todos los campos son obligatorios", Toast.LENGTH_LONG).show();
-            return;
+            return false;
         }
 
         if(Integer.parseInt(stock.getText().toString()) < 0){
             Toast.makeText(this.getContext(), "El stock no puede ser negativo", Toast.LENGTH_LONG).show();
-            return;
+            return false;
         }
 
-        if(ProdNeg.buscarProductoPorId(this.getContext(), Integer.parseInt(id.getText().toString())) != null) {
+        if(!nombre.getText().toString().matches("[a-zA-Z ]+")){
+            Toast.makeText(this.getContext(), "El nombre solo puede contener letras", Toast.LENGTH_LONG).show();
+            return false;
+        }
+
+        if(prodNeg.buscarProductoPorId(this.getContext(), Integer.parseInt(id.getText().toString())) != null) {
             Toast.makeText(this.getContext(), "El ID ingresado ya existe", Toast.LENGTH_LONG).show();
-            return;
+            return false;
         }
 
-        if(ProdNeg.buscarProductoPorNombre(nombre.getText().toString(), this.getContext()) != null) {
+        if(prodNeg.buscarProductoPorNombre(nombre.getText().toString(), this.getContext()) != null) {
             Toast.makeText(this.getContext(), "Ya existe un producto con ese nombre", Toast.LENGTH_LONG).show();
-            return;
+            return false;
         }
-
-        Producto nuevo = new Producto();
-
-        nuevo.setId(Integer.parseInt(id.getText().toString()));
-        nuevo.setNombre(nombre.getText().toString());
-        nuevo.setStock(Integer.parseInt(stock.getText().toString()));
-        nuevo.setCategoria(new Categoria(spinCategorias.getSelectedItemPosition()+1,spinCategorias.getSelectedItem().toString()));
-        ProdNeg.agregarProducto(nuevo, this.getContext());
-
-        id.setText("");
-        nombre.setText("");
-        stock.setText("");
+        return true;
     }
 }

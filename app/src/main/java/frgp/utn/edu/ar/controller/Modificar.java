@@ -72,24 +72,8 @@ public class Modificar extends Fragment implements View.OnClickListener{
         btnModificar.setOnClickListener(new View.OnClickListener(){
 
             public void onClick(View v) {
-                if(IDSelec.getText().toString().isEmpty() || etNombre.getText().toString().isEmpty() || etStock.getText().toString().isEmpty()){
-                    Toast.makeText(view.getContext(), "Complete todos los campos", Toast.LENGTH_LONG).show();
-                }
 
-                if(Integer.parseInt(etStock.getText().toString()) < 0){
-                    Toast.makeText(view.getContext(), "El stock no puede ser negativo", Toast.LENGTH_LONG).show();
-                }
-
-
-                if(!producto.getNombre().equals(etNombre.getText().toString())) {
-                    ProductoNegocioImpl ProdNeg = new ProductoNegocioImpl();
-                    if(ProdNeg.buscarProductoPorNombre(etNombre.getText().toString(), view.getContext()) != null){
-                        Toast.makeText(view.getContext(), "Ya existe un producto con ese nombre", Toast.LENGTH_LONG).show();
-                        return;
-                    }
-                }
-
-                else{
+                if (checkFormValid(view)) {
                     ProductoNegocioImpl ProdNeg = new ProductoNegocioImpl();
                     Producto modificado = new Producto();
                     modificado.setId(Integer.parseInt(IDSelec.getText().toString()));
@@ -97,13 +81,13 @@ public class Modificar extends Fragment implements View.OnClickListener{
                     modificado.setStock(Integer.parseInt(etStock.getText().toString()));
                     modificado.setCategoria(new Categoria(spinCategorias.getSelectedItemPosition()+1,spinCategorias.getSelectedItem().toString()));
                     ProdNeg.modificarProducto(modificado,view.getContext());
+                    etID.setText("");
+                    IDSelec.setText("____");
+                    etNombre.setText("");
+                    etStock.setText("");
+                    spinCategorias.setSelection(0);
+                    producto = null;
                 }
-                etID.setText("");
-                IDSelec.setText("____");
-                etNombre.setText("");
-                etStock.setText("");
-                spinCategorias.setSelection(0);
-                producto = null;
             }});
         CatNeg.listarCategorias(view.getContext(), spinCategorias);
         return view;
@@ -127,5 +111,31 @@ public class Modificar extends Fragment implements View.OnClickListener{
                 spinCategorias.setSelection(producto.getCategoria().getId()-1);
             }
         }
+    }
+
+    private boolean checkFormValid(View view) {
+        if (IDSelec.getText().toString().isEmpty() || etNombre.getText().toString().isEmpty() || etStock.getText().toString().isEmpty()) {
+            Toast.makeText(view.getContext(), "Complete todos los campos", Toast.LENGTH_LONG).show();
+            return false;
+        }
+
+        if (Integer.parseInt(etStock.getText().toString()) < 0) {
+            Toast.makeText(view.getContext(), "El stock no puede ser negativo", Toast.LENGTH_LONG).show();
+            return false;
+        }
+
+        if (!etNombre.getText().toString().matches("[a-zA-Z ]+")) {
+            Toast.makeText(view.getContext(), "El nombre solo puede contener letras", Toast.LENGTH_LONG).show();
+            return false;
+        }
+
+        if (!producto.getNombre().equals(etNombre.getText().toString())) {
+            ProductoNegocioImpl ProdNeg = new ProductoNegocioImpl();
+            if (ProdNeg.buscarProductoPorNombre(etNombre.getText().toString(), view.getContext()) != null) {
+                Toast.makeText(view.getContext(), "Ya existe un producto con ese nombre", Toast.LENGTH_LONG).show();
+                return false;
+            }
+        }
+        return true;
     }
 }
